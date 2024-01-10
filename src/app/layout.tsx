@@ -3,6 +3,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 export const fontSans = FontSans({
@@ -23,11 +26,11 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className={GeistSans.className}>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
+            GeistSans.variable
           )}
         >
           {children}

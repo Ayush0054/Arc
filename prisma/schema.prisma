@@ -6,75 +6,91 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
-model Profile {
-id     String @id @default(uuid())
-  userId String @unique
-name    String
-email   String
-phone   Int
-goals  Goal[]
-// habits habit[]
- createdAt DateTime @default(now())
-}
-// model Resolution{
-//   id  String @id @default(uuid())
-//    profileId       String 
-//  profile       Profile@relation(fields: [profileId], references: [id])
-//  goal   
-//  habit  Boolean
-//   createdAt DateTime @default(now())
-// }
-// model Habit {
-//   id          String @id @default(uuid())
 
-  
-// }
-model Goal{
- id       String @id @default(uuid())
- name     String
- description   String
- completiontime  DateTime
- progress     GoalProgress[]
- status        String
- profileId       String 
- profile       Profile@relation(fields: [profileId], references: [id])
- createdAt DateTime @default(now()) 
- comments    Comments[]
- like        Likes[]
- disLike     DisLikes[]
+model Profile {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  userName  String
+  name      String
+  email     String
+  phone     String
+  goals     Goal[]
+  likes     Likes[]
+  dislikes  DisLikes[]
+  comments  Comments[]
+  createdAt DateTime   @default(now())
 }
-model GoalProgress{
-  id         String @id @default(uuid())
-  dateTime   DateTime
-  update String
-  goalId       String
-  Goal     Goal@relation(fields: [goalId],references: [id])
+
+model Goal {
+  id               String         @id @default(uuid())
+  name             String
+  description      String
+  type             String
+  image            String
+  completiontime   DateTime
+  progress         GoalProgress[]
+  status           String
+  profileId        String
+  profile          Profile        @relation(fields: [profileId], references: [userId])
+  createdAt        DateTime       @default(now())
+  comments         Comments[]
+  like             Likes[]
+  disLike          DisLikes[]
+  isCompleted      Boolean        @default(false)
+  completionBanner String
 }
-model Comments{
-  id         String @id @default(uuid())
- goalId       String
-  Goal     Goal@relation(fields: [goalId],references: [id])
-  text       String
- createdAt DateTime @default(now()) 
-  userName   String
- image       String
+
+model GoalProgress {
+  id        String     @id @default(uuid())
+  dateTime  DateTime
+  update    String
+  comments  Comments[]
+  likes     Likes[]
+  dislikes  DisLikes[]
+  goalId    String
+  Goal      Goal       @relation(fields: [goalId], references: [id])
+  isChecked Boolean    @default(false)
 }
-model Likes{
-  Id          String @id @default(uuid())
-goalId      String
-  Goal     Goal@relation(fields: [goalId],references: [id])
-  count        Int
-  UserName     String
-   createdAt DateTime @default(now())    
+
+model Comments {
+  id             String       @id @default(uuid())
+  goalId         String
+  Goal           Goal         @relation(fields: [goalId], references: [id])
+  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id])
+  goalProgressId String
+  text           String
+  createdAt      DateTime     @default(now())
+  userName       String
+  image          String
+  UserId         String
+  User           Profile      @relation(fields: [UserId], references: [userId])
 }
-model DisLikes{
-  Id         String @id @default(uuid())
- goalId       String
-  Goal     Goal@relation(fields: [goalId],references: [id])
-  count        Int
-  UserName     String
-   createdAt DateTime @default(now())    
+
+model Likes {
+  Id             String       @id @default(uuid())
+  goalId         String
+  Goal           Goal         @relation(fields: [goalId], references: [id])
+  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id])
+  goalProgressId String
+  count          Int
+  UserId         String
+  User           Profile      @relation(fields: [UserId], references: [userId])
+  createdAt      DateTime     @default(now())
+}
+
+model DisLikes {
+  Id             String       @id @default(uuid())
+  goalId         String
+  Goal           Goal         @relation(fields: [goalId], references: [id])
+  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id])
+  goalProgressId String
+  count          Int
+  UserName       String
+  createdAt      DateTime     @default(now())
+  UserId         String
+  User           Profile      @relation(fields: [UserId], references: [userId])
 }
