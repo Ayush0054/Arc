@@ -26,7 +26,7 @@ export async function POST(req: Request, res: Response) {
 
     const newGoal = await prisma.goal.create({
       data: {
-        profileId: user.id as string,
+        profile: { connect: { userId: user.id } },
         name: body.name,
         description: body.description,
         type: body.type,
@@ -41,10 +41,7 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json(newGoal, { status: 200 });
   } catch (error) {
     console.error("Request error", error);
-    return NextResponse.json(
-      { error: "Error creating question" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error creating goal" }, { status: 500 });
   }
 }
 export async function GET(request: Request) {
