@@ -2,7 +2,7 @@ import Navbar from "@/app/component/navbar";
 import React from "react";
 import FeedSidebar from "./feedSidebar";
 
-function Layout({ children }) {
+function Layout({ children }: { children: any }) {
   return (
     <div>
       <div className=" flex justify-between">

@@ -98,7 +98,11 @@ export function Sheets() {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit" onClick={createGoal}>
+            <Button
+              type="submit"
+              className=" m-4 bg-green-600 text-white hover:bg-green-500 hover:text-white"
+              onClick={createGoal}
+            >
               Save changes
             </Button>
           </SheetClose>
