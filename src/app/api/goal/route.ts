@@ -23,7 +23,6 @@ export async function POST(req: Request, res: Response) {
     });
 
     console.log(profile);
-
     const newGoal = await prisma.goal.create({
       data: {
         profile: { connect: { userId: user.id } },

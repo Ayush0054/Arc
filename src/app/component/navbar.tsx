@@ -3,9 +3,7 @@ import React from "react";
 
 function Navbar() {
   return (
-    <div className=" m-4 flex justify-between ">
-      <h1 className="font-bold text-2xl">ARXC </h1>
-
+    <div className="flex justify-between bg-white p-4  ">
       <UserButton afterSignOutUrl="/" />
     </div>
   );

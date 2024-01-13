@@ -13,26 +13,14 @@ import {
 } from "@/components/ui/sheet";
 import { DatePicker } from "./datepicker";
 import axios from "axios";
+import { useState } from "react";
 
-export function Sheets({
-  name,
-  description,
-  type,
-  completionDate,
-  setName,
-  setCompletionDate,
-  setDescription,
-  setType,
-}: {
-  name: string;
-  description: string;
-  type: string;
-  completionDate: string;
-  setName: (name: string) => void;
-  setCompletionDate: (completionDate: string) => void;
-  setDescription: (description: string) => void;
-  setType: (type: string) => void;
-}) {
+export function Sheets() {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [completionDate, setCompletionDate] = useState<string>("");
+
   const createGoal = async () => {
     const data = {
       name: name,
@@ -54,14 +42,17 @@ export function Sheets({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Add goals</Button>
+        <Button
+          variant="outline"
+          className=" m-4 bg-green-600 text-white hover:bg-green-500 hover:text-white"
+        >
+          Add goals
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           {/* <SheetTitle>Y</SheetTitle> */}
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
+          <SheetDescription>Add Your Goals</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">

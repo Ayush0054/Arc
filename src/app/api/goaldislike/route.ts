@@ -21,7 +21,7 @@ export async function POST(req: Request, res: Response) {
       return await undislike(body, user);
     }
 
-    // Create a new like
+    // Create a new dislike
     const newLike = await prisma.disLikes.create({
       data: {
         goalId: body.goalId,
