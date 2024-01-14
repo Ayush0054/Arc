@@ -3,7 +3,7 @@ import React from "react";
 
 function FeedSidebar() {
   return (
-    <div className=" bg-[#ffffff] flex flex-col gap-5 w-[240px] h-[100vh] pt-5 border border-l-2 ">
+    <div className=" bg-[#ffffff] flex flex-col gap-5 w-[240px] h-[100vh] pt-5  ">
       <div className=" flex flex-col gap-5">
         <h1 className="font-bold text-3xl text-center">ARC</h1>
         <Sheets />
