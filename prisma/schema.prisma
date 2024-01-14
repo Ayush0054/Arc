@@ -47,63 +47,56 @@ model Goal {
 }
 
 model GoalProgress {
-  id        String     @id @default(uuid())
+  id        String   @id @default(uuid())
   dateTime  DateTime
   update    String
-  comments  Comments[]
-  likes     Likes[]
-  dislikes  DisLikes[]
   goalId    String
-  Goal      Goal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
-  isChecked Boolean    @default(false)
+  Goal      Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  isChecked Boolean  @default(false)
 
   @@index([goalId])
 }
 
 model Comments {
-  id             String       @id @default(uuid())
-  goalId         String
-  Goal           Goal         @relation(fields: [goalId], references: [id], onDelete: Cascade)
-  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id], onDelete: Cascade)
-  goalProgressId String
-  text           String
-  createdAt      DateTime     @default(now())
-  userName       String
-  image          String
-  UserId         String
-  User           Profile      @relation(fields: [UserId], references: [userId], onDelete: Cascade)
+  id     String @id @default(uuid())
+  goalId String
+  Goal   Goal   @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  text      String
+  createdAt DateTime @default(now())
+  userName  String
+  image     String
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [userId], onDelete: Cascade)
 
   @@index([goalId])
-  @@index([goalProgressId])
-  @@index([UserId])
+  @@index([profileId])
 }
 
 model Likes {
-  Id             String       @id @default(uuid())
-  goalId         String
-  Goal           Goal         @relation(fields: [goalId], references: [id], onDelete: Cascade)
-  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id], onDelete: Cascade)
-  goalProgressId String
-  UserId         String
-  User           Profile      @relation(fields: [UserId], references: [userId], onDelete: Cascade)
-  createdAt      DateTime     @default(now())
+  Id     String @id @default(uuid())
+  goalId String
+  Goal   Goal   @relation(fields: [goalId], references: [id], onDelete: Cascade)
 
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([goalId, profileId])
   @@index([goalId])
-  @@index([UserId])
-  @@index([goalProgressId])
+  @@index([profileId])
 }
 
 model DisLikes {
-  Id             String       @id @default(uuid())
-  goalId         String
-  Goal           Goal         @relation(fields: [goalId], references: [id])
-  goalProgress   GoalProgress @relation(fields: [goalProgressId], references: [id])
-  goalProgressId String
-  createdAt      DateTime     @default(now())
-  UserId         String
-  User           Profile      @relation(fields: [UserId], references: [userId])
+  Id     String @id @default(uuid())
+  goalId String
+  Goal   Goal   @relation(fields: [goalId], references: [id])
 
+  createdAt DateTime @default(now())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+
+  @@unique([goalId, profileId])
   @@index([goalId])
-  @@index([goalProgressId])
-  @@index([UserId])
+  @@index([profileId])
 }

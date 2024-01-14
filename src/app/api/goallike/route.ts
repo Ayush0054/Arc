@@ -6,28 +6,32 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request, res: Response) {
   const body = await req.json();
-  const user = await currentUser();
 
   try {
+    const user = await currentUser();
+    if (!user) {
+      return redirectToSignIn();
+    }
     // Check if the user has already liked the goal
-    const existingLike = await prisma.likes.findFirst({
+
+    const existingLike = await prisma.likes.findUnique({
       where: {
-        goalId: body.goalId,
-        UserId: user.id,
+        goalId_profileId: {
+          goalId: body.goalId,
+          profileId: user.id,
+        },
       },
     });
+    console.log(existingLike);
 
     if (existingLike) {
       return await unlike(body, user);
     }
 
-    // Create a new like
     const newLike = await prisma.likes.create({
       data: {
-        goalId: body.goalId,
-        // User: { connect: { userId: user.id } },
-        UserId: user.id,
-        goalProgressId: "",
+        Goal: { connect: { id: body.goalId } },
+        profile: { connect: { userId: user.id } },
       },
     });
     return NextResponse.json(newLike, { status: 200 });
@@ -36,14 +40,29 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ error: "Error creating goal" }, { status: 500 });
   }
 }
-const unlike = async (body, user) => {
+const unlike = async (body: any, user: any) => {
   // Delete the like
   const deletedLike = await prisma.likes.deleteMany({
     where: {
       goalId: body.goalId,
-      UserId: user.id,
+      profileId: user.id,
     },
   });
 
-  return deletedLike;
+  // return deletedLike;
+  return NextResponse.json(deletedLike, { status: 200 });
 };
+export async function GET(req: Request, res: Response) {
+  const body = await req.json();
+  try {
+    const likes = await prisma.likes.findMany({
+      where: {
+        goalId: body.params.goalId,
+      },
+    });
+    return NextResponse.json(likes, { status: 200 });
+  } catch (error) {
+    console.error("Request error", error);
+    return NextResponse.json({ error: "Error getting likes" }, { status: 500 });
+  }
+}

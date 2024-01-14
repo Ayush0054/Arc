@@ -6,14 +6,19 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request, res: Response) {
   const body = await req.json();
-  const user = await currentUser();
 
   try {
+    const user = await currentUser();
+    if (!user) {
+      return redirectToSignIn();
+    }
     // Check if the user has already liked the goal
-    const existingdisLike = await prisma.disLikes.findFirst({
+    const existingdisLike = await prisma.disLikes.findUnique({
       where: {
-        goalId: body.goalId,
-        UserId: user.id,
+        goalId_profileId: {
+          goalId: body.goalId,
+          profileId: user.id,
+        },
       },
     });
 
@@ -22,27 +27,26 @@ export async function POST(req: Request, res: Response) {
     }
 
     // Create a new dislike
-    const newLike = await prisma.disLikes.create({
+    const newdisLike = await prisma.disLikes.create({
       data: {
-        goalId: body.goalId,
-        UserId: user.id,
-        goalProgressId: "",
+        Goal: { connect: { id: body.goalId } },
+        profile: { connect: { userId: user.id } },
       },
     });
-    return NextResponse.json(newLike, { status: 200 });
+    return NextResponse.json(newdisLike, { status: 200 });
   } catch (error) {
     console.error("Request error", error);
     return NextResponse.json({ error: "Error creating goal" }, { status: 500 });
   }
 }
-const undislike = async (body, user) => {
+const undislike = async (body: any, user: any) => {
   // Delete the like
   const deletedDisLike = await prisma.disLikes.deleteMany({
     where: {
       goalId: body.goalId,
-      UserId: user.id,
+      profileId: user.id,
     },
   });
 
-  return deletedDisLike;
+  return NextResponse.json(deletedDisLike, { status: 200 });
 };
