@@ -17,7 +17,6 @@ model Profile {
   userName  String
   name      String
   email     String
-  phone     String
   goals     Goal[]
   likes     Likes[]
   dislikes  DisLikes[]

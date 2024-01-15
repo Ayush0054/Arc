@@ -21,7 +21,8 @@ function Page() {
   }, []);
 
   return (
-    <div className="bg-[#F6F6F6]">
+    <div className=" pl-16 pr-16">
+      {/* bg-[#f1f5f0] */}
       <Layout>
         <Goals />
       </Layout>

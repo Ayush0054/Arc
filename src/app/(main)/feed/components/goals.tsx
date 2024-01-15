@@ -55,7 +55,10 @@ function Goals() {
   return (
     <div className="m-5">
       {goal.map((g) => (
-        <Card key={g.id} className="m-3 p-5 w-[500px] h-[160px]">
+        <Card
+          key={g.id}
+          className=" flex flex-col justify-between p-8 m-3 w-[600px] h-[200px]"
+        >
           <div className=" mb-8 flex justify-between">
             <div>
               <CardTitle>{g.name}</CardTitle>
