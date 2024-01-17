@@ -24,7 +24,9 @@ function Page() {
     <div className=" pl-16 pr-16">
       {/* bg-[#f1f5f0] */}
       <Layout>
-        <Goals />
+        <div className=" flex justify-center ">
+          <Goals />
+        </div>
       </Layout>
     </div>
   );
