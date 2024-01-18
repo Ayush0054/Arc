@@ -19,14 +19,14 @@ export function Sheets() {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [type, setType] = useState<string>("");
-  const [completionDate, setCompletionDate] = useState<string>("");
+  const [completionDate, setCompletionDate] = useState<Date>();
 
   const createGoal = async () => {
     const data = {
       name: name,
       description: description,
       type: type,
-      completiontime: new Date("2022-03-25"),
+      completiontime: completionDate,
       image: "",
       status: "",
       completionBanner: "",
@@ -93,7 +93,10 @@ export function Sheets() {
               Completion Date
             </Label>
             {/* <Input id="username" className="col-span-3" autoComplete="off" /> */}
-            <DatePicker />
+            <DatePicker
+              completionDate={completionDate}
+              setCompletionDate={setCompletionDate}
+            />
           </div>
         </div>
         <SheetFooter>

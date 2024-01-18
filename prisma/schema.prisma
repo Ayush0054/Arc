@@ -47,7 +47,7 @@ model Goal {
 
 model GoalProgress {
   id        String   @id @default(uuid())
-  dateTime  DateTime
+  dateTime  DateTime @default(now())
   update    String
   goalId    String
   Goal      Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)

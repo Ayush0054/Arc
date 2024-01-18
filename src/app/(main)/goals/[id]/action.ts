@@ -56,3 +56,38 @@ export async function getdislikesbygoalId(Id: any) {
 
   return disLikes;
 }
+export async function createGoalProgress(Id: any, isCheck: boolean, text: any) {
+  const user = await currentUser();
+
+  if (!user) {
+    return redirectToSignIn();
+  }
+
+  const newGoalProgress = await prisma.goalProgress.create({
+    data: {
+      update: text,
+      isChecked: isCheck,
+      goalId: Id,
+      // dateTime: new Date(),
+    },
+  });
+  console.log(newGoalProgress);
+
+  // revalidatePath(`/goals/${Id}`);
+  return newGoalProgress;
+}
+export async function getLastGoalProgressUpdate(Id: any) {
+  const lastUpdate = await prisma.goalProgress.findFirst({
+    where: {
+      goalId: Id,
+      // Assuming you have a way to link GoalProgress with a user
+    },
+    orderBy: {
+      dateTime: "desc", // Order by dateTime in descending order to get the latest entry
+    },
+  });
+  console.log(lastUpdate);
+
+  // revalidatePath(`/goals/${Id}`);
+  return lastUpdate;
+}
