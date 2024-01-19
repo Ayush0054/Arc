@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import axios from "axios";
@@ -9,17 +10,27 @@ import {
 } from "@/components/ui/collapsible";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import Image from "next/image";
+import { getGoalProfileId } from "../action";
+import { useRouter } from "next/navigation";
 
 function Goals() {
+  const { push } = useRouter();
+
   const [goal, setGoal] = useState([]);
+
+  //fetching goals
+
   const getGoals = async () => {
     const response = await axios.get("/api/goal");
     setGoal(response.data);
     console.log(response);
   };
+
   useLayoutEffect(() => {
     getGoals();
   }, []);
+
+  //hardcoded avatar
   const people = [
     {
       id: 1,
@@ -28,6 +39,7 @@ function Goals() {
       src: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
     },
   ];
+  //create like
   const like = async (id) => {
     const data = {
       goalId: id,
@@ -40,6 +52,7 @@ function Goals() {
       console.error("Error creating goal:", error);
     }
   };
+  // create dislike
   const dislike = async (id) => {
     const data = {
       goalId: id,
@@ -61,8 +74,21 @@ function Goals() {
         >
           <div className=" mb-8 flex justify-between">
             <div>
-              <CardTitle>{g.name}</CardTitle>
+              <CardTitle
+                onClick={() => {
+                  push(`/goal/${g.id}`);
+                }}
+              >
+                {g.name}
+              </CardTitle>
               <CardDescription>{g.description}</CardDescription>
+              <a
+                onClick={() => {
+                  push(`/profile/${g.profileId}`);
+                }}
+              >
+                {g.profile.name}
+              </a>
             </div>
             <div onClick={() => console.log("hey")}>
               <AnimatedTooltip items={people} className="h-10 w-10" />

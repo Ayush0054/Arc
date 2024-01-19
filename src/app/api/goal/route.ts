@@ -46,7 +46,23 @@ export async function POST(req: Request, res: Response) {
 export async function GET(request: Request) {
   try {
     const user = await currentUser();
-    const goals = await prisma.goal.findMany();
+
+    if (!user) {
+      return redirectToSignIn();
+    }
+    const goals = await prisma.goal.findMany({
+      // where: {
+      //   profileId: user.id,
+      // },
+      include: {
+        profile: {
+          select: {
+            name: true,
+            userName: true,
+          },
+        },
+      },
+    });
     return NextResponse.json(goals, { status: 200 });
   } catch (error) {
     console.error("Request error", error);
@@ -56,6 +72,7 @@ export async function GET(request: Request) {
     );
   }
 }
+
 export async function PATCH(req: Request) {
   const { goalId, name, description, completiontime } = Object.fromEntries(
     req.url

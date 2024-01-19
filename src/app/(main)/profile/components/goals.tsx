@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import axios from "axios";
@@ -10,18 +11,12 @@ import {
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { currentUser } from "@clerk/nextjs";
+import { getGoalsbyUserId } from "../[id]/action";
 
-function Goals() {
+function Goals({ goal, setGoal }: { goal: []; setGoal: any }) {
   const { push } = useRouter();
-  const [goal, setGoal] = useState([]);
-  const getGoals = async () => {
-    const response = await axios.get("/api/goal");
-    setGoal(response.data);
-    console.log(response);
-  };
-  useLayoutEffect(() => {
-    getGoals();
-  }, []);
+
   const people = [
     {
       id: 1,
@@ -30,6 +25,7 @@ function Goals() {
       src: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
     },
   ];
+  // create like
   const like = async (id) => {
     const data = {
       goalId: id,
@@ -45,6 +41,8 @@ function Goals() {
   //   const ids = ()=>{
   //     push(`/wish/${name2}`);
   //   }
+
+  // create dislike
   const dislike = async (id) => {
     const data = {
       goalId: id,
@@ -81,24 +79,39 @@ function Goals() {
                 illum quisquam consequatur magni, laborum quos dolorem repellat
                 debitis neque nam nesciunt blanditiis, repellendus quis non vel!{" "}
               </CardDescription>
+              <div className=" flex justify-between ">
+                <Button
+                  variant="outline"
+                  onClick={() => like(g.id)}
+                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                >
+                  Like
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => dislike(g.id)}
+                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                >
+                  Disike
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                >
+                  Comments
+                </Button>
+              </div>
             </div>
             <Button
               className=" mr-10"
               onClick={() => {
-                push(`/goals/${g.id}`);
+                push(`/goal/${g.id}`);
               }}
             >
               View Goal
             </Button>
           </div>
         ))}
-        {/* <Collapsible>
-          <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
-          <CollapsibleContent>
-            Yes. Free to use for personal and commercial projects. No
-            attribution required.
-          </CollapsibleContent>
-        </Collapsible> */}
       </div>
     </div>
   );

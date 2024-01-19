@@ -1,3 +1,4 @@
+"use server";
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -24,7 +25,8 @@ export const initialProfile = async () => {
       userId: user.id as string,
       name: `${user.firstName} ${user.lastName}`,
       email: user.emailAddresses[0].emailAddress,
-      userName: user.username,
+      userName: user.username as string,
+      image: user.imageUrl,
     },
   });
 

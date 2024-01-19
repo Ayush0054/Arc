@@ -7,12 +7,13 @@ import {
   getdislikesbygoalId,
   getlikesbygoalId,
 } from "./action";
-import Layout from "../../feed/components/layout";
+import Layout from "../../../component/layout";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Tab from "./component/tabs";
 import { Sheets } from "./component/sheet";
-
+import { currentUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 interface Params {
   params: { id: string };
 }
@@ -26,6 +27,7 @@ interface Data {
   status: string;
 }
 function Page({ params }: Params) {
+  const { userId } = useAuth();
   const [datas, setDatas] = useState<Data>();
   const [likes, setLikes] = useState([]);
   const [dislikes, setDislikes] = useState();
@@ -99,11 +101,13 @@ function Page({ params }: Params) {
   return (
     <Layout>
       <div className=" flex flex-col items-center">
-        <Sheets
-          progress={progress}
-          setProgress={setProgress}
-          updateGoalProgress={updateGoalProgress}
-        />
+        {datas?.profileId === userId && (
+          <Sheets
+            progress={progress}
+            setProgress={setProgress}
+            updateGoalProgress={updateGoalProgress}
+          />
+        )}
         <div className=" flex flex-col justify-between  p-8 m-3 ">
           <div className=" flex justify-between">
             <div>
