@@ -91,3 +91,19 @@ export async function getLastGoalProgressUpdate(Id: any) {
   // revalidatePath(`/goals/${Id}`);
   return lastUpdate;
 }
+
+export async function getGoalProgressUpdate(Id: any) {
+  const lastUpdate = await prisma.goalProgress.findMany({
+    where: {
+      goalId: Id,
+      // Assuming you have a way to link GoalProgress with a user
+    },
+    orderBy: {
+      dateTime: "desc", // Order by dateTime in descending order to get the latest entry
+    },
+  });
+  console.log(lastUpdate);
+
+  // revalidatePath(`/goals/${Id}`);
+  return lastUpdate;
+}

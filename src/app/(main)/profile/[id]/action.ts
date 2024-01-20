@@ -23,6 +23,16 @@ export async function getGoalsbyUserId(Id: any) {
           userName: true,
         },
       },
+      like: {
+        select: {
+          profileId: true,
+        },
+      },
+      disLike: {
+        select: {
+          profileId: true,
+        },
+      },
     },
   });
   revalidatePath(`/profile/${Id}`);

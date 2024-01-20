@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import { getGoalsbyUserId } from "../[id]/action";
 
-function Goals({ goal, setGoal }: { goal: []; setGoal: any }) {
+function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {
   const { push } = useRouter();
 
   const people = [
@@ -26,7 +26,7 @@ function Goals({ goal, setGoal }: { goal: []; setGoal: any }) {
     },
   ];
   // create like
-  const like = async (id) => {
+  const like = async (id: any) => {
     const data = {
       goalId: id,
     };
@@ -38,12 +38,9 @@ function Goals({ goal, setGoal }: { goal: []; setGoal: any }) {
       console.error("Error creating goal:", error);
     }
   };
-  //   const ids = ()=>{
-  //     push(`/wish/${name2}`);
-  //   }
 
   // create dislike
-  const dislike = async (id) => {
+  const dislike = async (id: any) => {
     const data = {
       goalId: id,
     };
@@ -59,57 +56,63 @@ function Goals({ goal, setGoal }: { goal: []; setGoal: any }) {
     <div className=" ">
       <div>{/* <h1 className="text-2xl font-bold">Your Goals</h1> */}</div>
       <div className="m-5">
-        {goal.map((g) => (
-          <div className=" flex justify-evenly items-center">
-            <div
-              key={g.id}
-              className=" flex flex-col justify-between p-8 m-3 w-[600px] h-[200px]  border-b-2"
-            >
-              <div className=" flex justify-between">
-                <div>
-                  <CardTitle>{g.name}</CardTitle>
+        {goal.map((g: any) => (
+          <div
+            key={g.id}
+            className=" flex flex-col justify-between p-8 m-3   border-b-2"
+          >
+            <div className=" flex justify-between items-center">
+              <div className=" w-[600px]">
+                <div className=" flex justify-between">
+                  <div>
+                    <CardTitle>{g.name}</CardTitle>
+                  </div>
+                  <h1 className="text-lg font-normal text-gray-500">
+                    2024-01-11T17:52:42.463Z
+                  </h1>
                 </div>
-                <h1 className="text-lg font-normal text-gray-500">
-                  2024-01-11T17:52:42.463Z
-                </h1>
+                <CardDescription>
+                  {g.description} Lorem, ipsum dolor sit amet consectetur
+                  adipisicing elit. Facere obcaecati delectus dolore praesentium
+                  illum quisquam consequatur magni, laborum quos dolorem
+                  repellat debitis neque nam nesciunt blanditiis, repellendus
+                  quis non vel!{" "}
+                </CardDescription>
+                <div className=" flex justify-between ">
+                  <Button
+                    variant="outline"
+                    onClick={() => like(g.id)}
+                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                  >
+                    {g.like.length}
+                    Like
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => dislike(g.id)}
+                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                  >
+                    {g.disLike.length}
+                    Disike
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                  >
+                    Comments
+                  </Button>
+                </div>
               </div>
-              <CardDescription>
-                {g.description} Lorem, ipsum dolor sit amet consectetur
-                adipisicing elit. Facere obcaecati delectus dolore praesentium
-                illum quisquam consequatur magni, laborum quos dolorem repellat
-                debitis neque nam nesciunt blanditiis, repellendus quis non vel!{" "}
-              </CardDescription>
-              <div className=" flex justify-between ">
-                <Button
-                  variant="outline"
-                  onClick={() => like(g.id)}
-                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                >
-                  Like
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => dislike(g.id)}
-                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                >
-                  Disike
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                >
-                  Comments
-                </Button>
-              </div>
+
+              <Button
+                className=" mr-10"
+                onClick={() => {
+                  push(`/goal/${g.id}`);
+                }}
+              >
+                View Goal
+              </Button>
             </div>
-            <Button
-              className=" mr-10"
-              onClick={() => {
-                push(`/goal/${g.id}`);
-              }}
-            >
-              View Goal
-            </Button>
           </div>
         ))}
       </div>

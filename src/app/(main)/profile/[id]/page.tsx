@@ -18,7 +18,11 @@ function Page({ params }: Params) {
   }, []);
   return (
     <Layout>
-      <Goals goal={goal} setGoal={setGoal} />
+      {goal.length != 0 ? (
+        <Goals goal={goal} setGoal={setGoal} />
+      ) : (
+        <div>Start your first goal</div>
+      )}
     </Layout>
   );
 }

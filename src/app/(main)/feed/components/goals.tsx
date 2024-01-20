@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/collapsible";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import Image from "next/image";
-import { getGoalProfileId } from "../action";
+import {
+  getGoalProfileId,
+  getdislikesbygoalId,
+  getlikesbygoalId,
+} from "../action";
 import { useRouter } from "next/navigation";
 
 function Goals() {
@@ -39,6 +43,17 @@ function Goals() {
       src: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
     },
   ];
+  // const getlikesandDislikes = async (id) => {
+  //   const lk = await getlikesbygoalId(id);
+  //   console.log(lk);
+
+  //   console.log(lk.length);
+
+  //   const dk = await getdislikesbygoalId(id);
+
+  //   console.log(dk);
+  //   console.log(dk.length);
+  // };
   //create like
   const like = async (id) => {
     const data = {
@@ -100,6 +115,7 @@ function Goals() {
               onClick={() => like(g.id)}
               className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
             >
+              {g.like.length}
               Like
             </Button>
             <Button
@@ -107,6 +123,7 @@ function Goals() {
               onClick={() => dislike(g.id)}
               className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
             >
+              {g.disLike.length}
               Disike
             </Button>
             <Button

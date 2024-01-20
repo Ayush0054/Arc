@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {
   createGoalProgress,
+  getGoalProgressUpdate,
   getGoalbyId,
   getLastGoalProgressUpdate,
   getdislikesbygoalId,
@@ -31,13 +32,18 @@ function Page({ params }: Params) {
   const [datas, setDatas] = useState<Data>();
   const [likes, setLikes] = useState([]);
   const [dislikes, setDislikes] = useState();
-
+  const [goalProgress, setGoalProgress] = useState([]);
   const [progress, setProgress] = useState("");
   // The function created goal progress after checking 24h limit
   const updateGoalProgress = async () => {
     const lastUpdate = await getLastGoalProgressUpdate(params.id);
     console.log(lastUpdate);
+    if (lastUpdate === null) {
+      const created = await createGoalProgress(params.id, true, progress);
+      console.log(created);
 
+      return console.log("Progress updated!");
+    }
     if (isMoreThan24Hours(lastUpdate.dateTime)) {
       const created = await createGoalProgress(params.id, true, progress);
       console.log(created);
@@ -47,7 +53,11 @@ function Page({ params }: Params) {
       return console.log("You can only update once every 24 hours.");
     }
   };
-
+  //get all progress of given goalid
+  const getGoalProgress = async () => {
+    const response = await getGoalProgressUpdate(params.id);
+    setGoalProgress(response as []);
+  };
   function isMoreThan24Hours(pastDateTime) {
     const currentTime = new Date();
     const pastTime = new Date(pastDateTime);
@@ -96,6 +106,7 @@ function Page({ params }: Params) {
   };
   useEffect(() => {
     getgoal();
+    getGoalProgress();
   }, []);
 
   return (
@@ -140,7 +151,7 @@ function Page({ params }: Params) {
           </div>
           <div>total likes </div>
         </div>
-        <Tab goalId={params.id} />
+        <Tab goalId={params.id} goalProgress={goalProgress} />
       </div>
     </Layout>
   );

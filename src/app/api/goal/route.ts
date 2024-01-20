@@ -61,6 +61,16 @@ export async function GET(request: Request) {
             userName: true,
           },
         },
+        like: {
+          select: {
+            profileId: true,
+          },
+        },
+        disLike: {
+          select: {
+            profileId: true,
+          },
+        },
       },
     });
     return NextResponse.json(goals, { status: 200 });
