@@ -64,11 +64,12 @@ model Comments {
 
   text      String
   createdAt DateTime @default(now())
-  userName  String
+
   image     String
   profileId String
-  profile   Profile  @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  profile   Profile @relation(fields: [profileId], references: [userId], onDelete: Cascade)
 
+  @@unique([goalId, profileId])
   @@index([goalId])
   @@index([profileId])
 }

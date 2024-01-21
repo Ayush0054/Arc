@@ -2,6 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
+import Interaction from "./interaction";
 
 function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
   console.log(goalProgress);
@@ -10,7 +11,11 @@ function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
     <div>
       <Tabs defaultValue="account" className="flex flex-col items-center">
         <div className=" flex  items-center">
-          <TabsList className="w-[200px]  ">
+          <TabsList className="w-[450px]  ">
+            {/* <TabsTrigger value="interaction">Interactions</TabsTrigger> */}
+            <TabsTrigger value="comments">comments</TabsTrigger>
+            <TabsTrigger value="likes">likes</TabsTrigger>
+            <TabsTrigger value="dislikes">dislikes</TabsTrigger>
             <TabsTrigger value="progress">Goal Proggress</TabsTrigger>
             <TabsTrigger value="streak">Streak</TabsTrigger>
           </TabsList>
@@ -42,7 +47,13 @@ function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
               );
             })}
         </TabsContent>
+        {/* <TabsContent value="interaction">
+          <Interaction />
+        </TabsContent> */}
         <TabsContent value="streak">Change your password here.</TabsContent>
+        <TabsContent value="comments">Change your password here.</TabsContent>
+        <TabsContent value="likes">Change your password here.</TabsContent>
+        <TabsContent value="dislikes">Change your password here.</TabsContent>
       </Tabs>
     </div>
   );

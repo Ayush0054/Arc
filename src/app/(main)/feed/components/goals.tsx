@@ -12,11 +12,43 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import Image from "next/image";
 import {
   getGoalProfileId,
-  getdislikesbygoalId,
-  getlikesbygoalId,
+  // getdislikesbygoalId,
+  // getlikesbygoalId,
 } from "../action";
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { useRouter } from "next/navigation";
-
+import { FaComment } from "react-icons/fa6";
+import CommentModal from "./commentModal";
+interface Goal {
+  id: number;
+  name: string;
+  description: string;
+  profileId: number;
+  profile: {
+    id: number;
+    name: string;
+    email: string;
+    avatar: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  like: {
+    id: number;
+    goalId: number;
+    profileId: number;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  disLike: {
+    id: number;
+    goalId: number;
+    profileId: number;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  createdAt: string;
+  updatedAt: string;
+}
 function Goals() {
   const { push } = useRouter();
 
@@ -80,12 +112,13 @@ function Goals() {
       console.error("Error creating goal:", error);
     }
   };
+
   return (
     <div className="m-5">
-      {goal.map((g) => (
+      {goal.map((g: Goal) => (
         <Card
           key={g.id}
-          className=" flex flex-col justify-between p-8 m-3 w-[600px] h-[200px]"
+          className=" flex flex-col justify-between p-8 m-3 w-[600px] "
         >
           <div className=" mb-8 flex justify-between">
             <div>
@@ -96,7 +129,12 @@ function Goals() {
               >
                 {g.name}
               </CardTitle>
-              <CardDescription>{g.description}</CardDescription>
+              <CardDescription>
+                {g.description} Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Explicabo dolorem officia quasi repellendus
+                qui ex esse fuga aut sint vero, itaque assumenda corporis quis
+                hic unde modi nesciunt numquam facere?
+              </CardDescription>
               <a
                 onClick={() => {
                   push(`/profile/${g.profileId}`);
@@ -110,38 +148,29 @@ function Goals() {
             </div>
           </div>
           <div className=" flex justify-between ">
-            <Button
-              variant="outline"
+            <div
               onClick={() => like(g.id)}
-              className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+              className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
             >
-              {g.like.length}
-              Like
-            </Button>
-            <Button
-              variant="outline"
+              <span>{g.like.length}</span>
+              <AiOutlineLike className="hover:text-red-500 text-xl" />
+              {/* <AiFillLike /> */}
+            </div>
+            <div
               onClick={() => dislike(g.id)}
-              className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+              className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
             >
               {g.disLike.length}
-              Disike
-            </Button>
-            <Button
-              variant="outline"
-              className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-            >
-              Comments
-            </Button>
+              <AiOutlineDislike className="hover:text-red-500 text-xl" />
+              {/* <AiFillDislike /> */}
+            </div>
+            {/* <Button variant="outline" className="border-none  text-gray-500">
+              <FaComment />
+            </Button> */}
+            <CommentModal id={g.id} />
           </div>
         </Card>
       ))}
-      <Collapsible>
-        <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
-        <CollapsibleContent>
-          Yes. Free to use for personal and commercial projects. No attribution
-          required.
-        </CollapsibleContent>
-      </Collapsible>
     </div>
   );
 }
