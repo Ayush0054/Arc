@@ -7,7 +7,7 @@ function FeedSidebar() {
   const { push } = useRouter();
   const { userId } = useAuth();
   return (
-    <div className=" bg-[#ffffff] flex flex-col gap-5 w-[440px] h-[100vh] pt-5  border-r-2  ">
+    <div className=" flex flex-col gap-5 w-[440px] h-[100vh] pt-5  border-r-2  ">
       <div className=" flex flex-col gap-5">
         <a
           className="font-bold text-3xl text-center"

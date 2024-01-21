@@ -5,6 +5,7 @@ import {
   getGoalProgressUpdate,
   getGoalbyId,
   getLastGoalProgressUpdate,
+  getcommentsbygoalId,
   getdislikesbygoalId,
   getlikesbygoalId,
 } from "./action";
@@ -31,8 +32,9 @@ function Page({ params }: Params) {
   const { userId } = useAuth();
   const [datas, setDatas] = useState<Data>();
   const [likes, setLikes] = useState([]);
-  const [dislikes, setDislikes] = useState();
+  const [dislikes, setDislikes] = useState([]);
   const [goalProgress, setGoalProgress] = useState([]);
+  const [Comments, setComments] = useState([]);
   const [progress, setProgress] = useState("");
   // The function created goal progress after checking 24h limit
   const updateGoalProgress = async () => {
@@ -103,6 +105,9 @@ function Page({ params }: Params) {
     console.log(dk.length);
 
     setDislikes(dk);
+    const cmt = await getcommentsbygoalId(params.id);
+    console.log(cmt);
+    setComments(cmt);
   };
   useEffect(() => {
     getgoal();
@@ -151,7 +156,13 @@ function Page({ params }: Params) {
           </div>
           <div>total likes </div>
         </div>
-        <Tab goalId={params.id} goalProgress={goalProgress} />
+        <Tab
+          goalId={params.id}
+          goalProgress={goalProgress}
+          likes={likes}
+          Comments={Comments}
+          dislikes={dislikes}
+        />
       </div>
     </Layout>
   );

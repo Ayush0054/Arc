@@ -1,10 +1,28 @@
 "use client";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
 import Interaction from "./interaction";
+import { Button } from "@/components/ui/button";
 
-function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
+function Tab({
+  goalId,
+  goalProgress,
+  Comments,
+  likes,
+  dislikes,
+}: {
+  goalId: any;
+  goalProgress: any;
+  Comments: any;
+  dislikes: any;
+  likes: any;
+}) {
   console.log(goalProgress);
 
   return (
@@ -26,7 +44,7 @@ function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
               return (
                 <Card
                   key={gp.id}
-                  className="  flex flex-col justify-evenly w-[500px] p-5  "
+                  className="  flex flex-col justify-evenly w-[500px] p-5 m-5  "
                 >
                   <div className=" flex justify-between ">
                     <h1 className="text-lmd text-gray-400  ">
@@ -51,9 +69,74 @@ function Tab({ goalId, goalProgress }: { goalId: any; goalProgress: any }) {
           <Interaction />
         </TabsContent> */}
         <TabsContent value="streak">Change your password here.</TabsContent>
-        <TabsContent value="comments">Change your password here.</TabsContent>
-        <TabsContent value="likes">Change your password here.</TabsContent>
-        <TabsContent value="dislikes">Change your password here.</TabsContent>
+        <TabsContent value="comments">
+          {/* <Button>Comment</Button> */}
+          {Comments.map((c) => {
+            return (
+              <Card className="   min-w-[300px]  w-[500px] m-5 p-5 ">
+                <div className=" flex  justify-between">
+                  <CardDescription>
+                    {" "}
+                    {new Date(c.createdAt).toLocaleDateString()}
+                  </CardDescription>
+
+                  <img
+                    src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80"
+                    className="h-10 w-10 rounded-full"
+                    alt="uop"
+                  />
+                </div>
+                <h1 className="text-lg text-gray-600">
+                  {c.text}loda lelo loekdosjkfgoj Lorem, ipsum dolor sit amet
+                  consectetur adipisicing elit. Maxime aliquam dolor dignissimos
+                  vel tempora, magni cumque, in quibusdam totam distinctio iste
+                  unde quam, minima possimus doloremque rem delectus excepturi
+                  cupiditate!
+                </h1>
+              </Card>
+            );
+          })}
+        </TabsContent>
+        <TabsContent value="likes">
+          {likes.map((c) => {
+            return (
+              <Card className="  p-5 min-w-[300px] m-5 ">
+                <div className=" flex  justify-between">
+                  <img
+                    src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80"
+                    className="h-10 w-10 rounded-full"
+                    alt="uop"
+                  />
+                  <CardContent>{c.profile.name}</CardContent>
+                </div>
+                {/* <CardDescription>
+                  {" "}
+                  {new Date(c.createdAt).toLocaleDateString()}
+                </CardDescription> */}
+              </Card>
+            );
+          })}
+        </TabsContent>
+        <TabsContent value="dislikes">
+          {dislikes.map((c) => {
+            return (
+              <Card className="  p-5 min-w-[300px] m-5">
+                <div className=" flex  justify-between">
+                  <img
+                    src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80"
+                    className="h-10 w-10 rounded-full"
+                    alt="uop"
+                  />
+                  <CardContent>{c.profile.name}</CardContent>
+                </div>
+                {/* <CardDescription>
+                  {" "}
+                  {new Date(c.createdAt).toLocaleDateString()}
+                </CardDescription> */}
+              </Card>
+            );
+          })}
+        </TabsContent>
       </Tabs>
     </div>
   );

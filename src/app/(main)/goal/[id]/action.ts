@@ -32,6 +32,15 @@ export async function getlikesbygoalId(Id: any) {
     where: {
       goalId: Id,
     },
+    include: {
+      profile: {
+        select: {
+          name: true,
+          userName: true,
+          image: true,
+        },
+      },
+    },
   });
   // revalidatePath(`/goals/${Id}`);
   console.log(user);
@@ -50,11 +59,46 @@ export async function getdislikesbygoalId(Id: any) {
     where: {
       goalId: Id,
     },
+    include: {
+      profile: {
+        select: {
+          name: true,
+          userName: true,
+          image: true,
+        },
+      },
+    },
   });
   // revalidatePath(`/goals/${Id}`);
   console.log(user);
 
   return disLikes;
+}
+export async function getcommentsbygoalId(Id: any) {
+  const user = await currentUser();
+  if (!user) {
+    return redirectToSignIn();
+  }
+  // console.log(user);
+
+  const comments = await prisma.comments.findMany({
+    where: {
+      goalId: Id,
+    },
+    include: {
+      profile: {
+        select: {
+          name: true,
+          userName: true,
+          image: true,
+        },
+      },
+    },
+  });
+  // revalidatePath(`/goals/${Id}`);
+  console.log(user);
+
+  return comments;
 }
 export async function createGoalProgress(Id: any, isCheck: boolean, text: any) {
   const user = await currentUser();

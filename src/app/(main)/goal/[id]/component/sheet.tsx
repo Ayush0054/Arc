@@ -28,12 +28,7 @@ export function Sheets({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          className=" m-4 bg-green-600 text-white hover:bg-green-500 hover:text-white"
-        >
-          Add Progress
-        </Button>
+        <Button className=" m-4  text-white ">Add Progress</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
