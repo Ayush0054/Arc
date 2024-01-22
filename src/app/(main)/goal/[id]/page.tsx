@@ -157,6 +157,7 @@ function Page({ params }: Params) {
           <div>total likes </div>
         </div>
         <Tab
+          datas={datas}
           goalId={params.id}
           goalProgress={goalProgress}
           likes={likes}

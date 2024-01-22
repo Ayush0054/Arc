@@ -9,14 +9,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
 import Interaction from "./interaction";
 import { Button } from "@/components/ui/button";
+import HeatmapComponent from "./heatmap";
 
 function Tab({
+  datas,
   goalId,
   goalProgress,
   Comments,
   likes,
   dislikes,
 }: {
+  datas: any;
   goalId: any;
   goalProgress: any;
   Comments: any;
@@ -24,7 +27,10 @@ function Tab({
   likes: any;
 }) {
   console.log(goalProgress);
-
+  // const goalIds = 'some-goal-id';
+  const goalType = "goal"; // or 'habit'
+  const startDate = datas?.createdAt as any;
+  const endDate = datas?.completiontime as any;
   return (
     <div>
       <Tabs defaultValue="account" className="flex flex-col items-center">
@@ -68,7 +74,15 @@ function Tab({
         {/* <TabsContent value="interaction">
           <Interaction />
         </TabsContent> */}
-        <TabsContent value="streak">Change your password here.</TabsContent>
+        <TabsContent value="streak">
+          <HeatmapComponent
+            goalId={goalId}
+            goalType={goalType}
+            startDate={new Date(startDate)}
+            endDate={new Date(endDate)}
+            goalProgress={goalProgress}
+          />
+        </TabsContent>
         <TabsContent value="comments">
           {/* <Button>Comment</Button> */}
           {Comments.map((c) => {
