@@ -40,7 +40,7 @@ function Tab({
             <TabsTrigger value="comments">comments</TabsTrigger>
             <TabsTrigger value="likes">likes</TabsTrigger>
             <TabsTrigger value="dislikes">dislikes</TabsTrigger>
-            <TabsTrigger value="progress">Goal Proggress</TabsTrigger>
+            <TabsTrigger value="progress"> Proggress</TabsTrigger>
             <TabsTrigger value="streak">Streak</TabsTrigger>
           </TabsList>
         </div>

@@ -58,7 +58,7 @@ const HeatmapComponent = ({
         rectSize={16}
         monthLabels={false}
         startDate={new Date(startDate)}
-        endDate={new Date(endDate ?? "")}
+        endDate={new Date("")}
         panelColors={{
           0: "#f4decd",
           2: "#e4b293",

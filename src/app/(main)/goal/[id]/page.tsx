@@ -134,27 +134,34 @@ function Page({ params }: Params) {
             </h1>
             <div className=" text-gray-600">{datas?.type}</div>
           </div>
-          <Image alt="mauj masti" src={datas?.image}></Image>
-          <CardDescription className=" text-lg">
-            {datas?.description} Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit. Facere obcaecati delectus dolore praesentium illum
-            quisquam consequatur magni, laborum quos dolorem repellat debitis
-            neque nam nesciunt blanditiis, repellendus quis non vel! Lorem,
-            ipsum dolor sit amet con sectetur adipisicing elit. Facere obcaecati
-            delectus dolore praesentium illum quisquam consequatur magni,
-            laborum quos dolorem repellat debitis neque nam nesciunt blanditiis,
-            repellendus quis non vel! Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit. Facere obcaecati delectus dolore praesentium illum
-            quisquam consequatur magni, laborum quos dolorem repellat debitis
-            neque nam nesciunt blanditiis, repellendus quis non vel!
-          </CardDescription>
+          <div className=" flex justify-between gap-4 m-4 ">
+            {/* <img
+              alt="mauj masti"
+              className=" h-[200px] w-[400px] rounded-lg "
+              // src={datas?.image}
+              src="https://spaces-wp.imgix.net/2016/06/coding-in-the-classroom.png?auto=compress,format&q=50"
+            ></img> */}
+            <CardDescription className=" text-lg">
+              {datas?.description} Lorem, ipsum dolor sit amet consectetur
+              adipisicing elit. Facere obcaecati delectus dolore praesentium
+              illum quisquam consequatur magni, laborum quos dolorem repellat
+              debitis neque nam nesciunt blanditiis, repellendus quis non vel!
+              Lorem, ipsum dolor sit amet con sectetur adipisicing elit. Facere
+              obcaecati delectus dolore praesentium illum quisquam consequatur
+              magni, laborum quos dolorem repellat debitis neque nam nesciunt
+              blanditiis, repellendus quis non vel! Lorem, ipsum dolor sit amet
+              consectetur adipisicing elit. Facere obcaecati delectus dolore
+              praesentium illum quisquam consequatur magni, laborum quos dolorem
+              repellat debitis neque nam nesciunt blanditiis, repellendus quis
+              non vel!
+            </CardDescription>
+          </div>
 
           <div className=" flex items-center justify-evenly">
             {/* <h1>{datas.completiontime}</h1> */}
             <h1>{datas?.iscompleted}</h1>
             <h1>{datas?.status}</h1>
           </div>
-          <div>total likes </div>
         </div>
         <Tab
           datas={datas}

@@ -42,12 +42,12 @@ export function Sheets() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className=" m-4 text-white">Add goals</Button>
+        <Button className=" m-4 text-white">Add arc</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           {/* <SheetTitle>Y</SheetTitle> */}
-          <SheetDescription>Add Your Goals</SheetDescription>
+          <SheetDescription>Add Your arc</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -98,7 +98,7 @@ export function Sheets() {
           <SheetClose asChild>
             <Button
               type="submit"
-              className=" m-4 bg-green-600 text-white hover:bg-green-500 hover:text-white"
+              className=" m-4 text-white "
               onClick={createGoal}
             >
               Save changes
