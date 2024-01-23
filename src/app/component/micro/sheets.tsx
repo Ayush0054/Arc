@@ -14,6 +14,7 @@ import {
 import { DatePicker } from "./datepicker";
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function Sheets() {
   const [name, setName] = useState<string>("");
@@ -34,6 +35,14 @@ export function Sheets() {
 
     try {
       const response = await axios.post("/api/goal", data);
+
+      toast("Goal has been created", {
+        description: "Sunday, December 03, 2023 at 9:00 AM",
+        action: {
+          label: "view",
+          onClick: () => console.log("Undo"),
+        },
+      });
       console.log(response);
     } catch (error) {
       console.error("Error creating goal:", error);

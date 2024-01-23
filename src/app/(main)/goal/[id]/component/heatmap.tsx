@@ -26,7 +26,7 @@ const HeatmapComponent = ({
     { date: "2024/01/28", count: 5 },
     { date: "2024/01/29", count: 5 },
   ];
-  const value2 = goalProgress.map((gp) => ({
+  const value2 = goalProgress.map((gp: any) => ({
     date: gp.dateTime,
     count: 5,
   }));
