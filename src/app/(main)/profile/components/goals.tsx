@@ -13,7 +13,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import { getGoalsbyUserId } from "../[id]/action";
-
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import CommentModal from "../../feed/components/commentModal";
+// import CommentModal from "./commentModal";
 function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {
   const { push } = useRouter();
 
@@ -79,28 +81,26 @@ function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {
                   quis non vel!{" "}
                 </CardDescription>
                 <div className=" flex justify-between ">
-                  <Button
-                    variant="outline"
+                  <div
                     onClick={() => like(g.id)}
-                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                    className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
                   >
-                    {g.like.length}
-                    Like
-                  </Button>
-                  <Button
-                    variant="outline"
+                    <span>{g.like.length}</span>
+                    <AiOutlineLike className="hover:text-red-500 text-xl" />
+                    {/* <AiFillLike /> */}
+                  </div>
+                  <div
                     onClick={() => dislike(g.id)}
-                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                    className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
                   >
                     {g.disLike.length}
-                    Disike
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                  >
-                    Comments
-                  </Button>
+                    <AiOutlineDislike className="hover:text-red-500 text-xl" />
+                    {/* <AiFillDislike /> */}
+                  </div>
+                  {/* <Button variant="outline" className="border-none  text-gray-500">
+              <FaComment />
+            </Button> */}
+                  <CommentModal id={g.id} />
                 </div>
               </div>
 

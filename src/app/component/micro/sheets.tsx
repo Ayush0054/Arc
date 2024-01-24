@@ -32,7 +32,11 @@ export function Sheets() {
       status: "",
       completionBanner: "",
     };
-
+    const currentTime = new Date().getTime();
+    if (completionDate && completionDate.getTime() < currentTime) {
+      toast.error("Completion date cannot be in the past.");
+      return;
+    }
     try {
       const response = await axios.post("/api/goal", data);
 
