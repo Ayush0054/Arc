@@ -1,6 +1,5 @@
 // HeatmapComponent.jsx
-import React, { useEffect, useRef, useState } from "react";
-import * as d3 from "d3";
+import React, { useState } from "react";
 // import Tooltip from "@uiw/react-tooltip";
 
 import HeatMap from "@uiw/react-heat-map";
@@ -18,32 +17,32 @@ const HeatmapComponent = ({
   endDate: any;
   goalProgress: any;
 }) => {
-  const value = [
-    { date: "2024/01/22", count: 5 },
-    { date: "2024/01/21", count: 5 },
-    { date: "2024/01/24", count: 5 },
-    { date: "2024/01/23", count: 5 },
-    { date: "2024/01/28", count: 5 },
-    { date: "2024/01/29", count: 5 },
-  ];
+  // const value = [
+  //   { date: "2024/01/22", count: 5 },
+  //   { date: "2024/01/21", count: 5 },
+  //   { date: "2024/01/24", count: 5 },
+  //   { date: "2024/01/23", count: 5 },
+  //   { date: "2024/01/28", count: 5 },
+  //   { date: "2024/01/29", count: 5 },
+  // ];
   const value2 = goalProgress.map((gp: any) => ({
     date: gp.dateTime,
     count: 5,
   }));
-  const month = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  // const month = [
+  //   "Jan",
+  //   "Feb",
+  //   "Mar",
+  //   "Apr",
+  //   "May",
+  //   "Jun",
+  //   "Jul",
+  //   "Aug",
+  //   "Sep",
+  //   "Oct",
+  //   "Nov",
+  //   "Dec",
+  // ];
   const [selected, setSelected] = useState("");
   return (
     <div className="">

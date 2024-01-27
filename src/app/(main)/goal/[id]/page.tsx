@@ -11,10 +11,10 @@ import {
 } from "./action";
 import Layout from "../../../component/layout";
 import { CardDescription, CardTitle } from "@/components/ui/card";
-import Image from "next/image";
+
 import Tab from "./component/tabs";
 import { Sheets } from "./component/sheet";
-import { currentUser } from "@clerk/nextjs";
+
 import { useAuth } from "@clerk/nextjs";
 interface Params {
   params: { id: string };

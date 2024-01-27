@@ -21,7 +21,7 @@ function Page() {
   }, []);
 
   return (
-    <div className=" pl-16 pr-16">
+    <div className=" ">
       {/* bg-[#f1f5f0] */}
       <Layout>
         <div className=" flex justify-center ">

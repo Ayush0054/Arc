@@ -9,6 +9,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { Avatar, AvatarImage } from "./avatar";
+import { useRouter } from "next/navigation";
 
 export const AnimatedTooltip = ({
   items,
@@ -16,10 +17,10 @@ export const AnimatedTooltip = ({
   items: {
     id: number;
     name: string;
-    designation: string;
     src: string;
   }[];
 }) => {
+  const { push } = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0); // going to set this value on mouse move
@@ -74,7 +75,6 @@ export const AnimatedTooltip = ({
                 <div className="font-bold text-white relative z-30 text-base">
                   {item.name}
                 </div>
-                <div className="text-white text-xs">{item.designation}</div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -83,6 +83,9 @@ export const AnimatedTooltip = ({
               onMouseMove={handleMouseMove}
               height={100}
               width={100}
+              onClick={() => {
+                push(`/profile/${item.id}`);
+              }}
               src={item.src}
               alt={item.name}
               className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"

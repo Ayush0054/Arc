@@ -59,6 +59,7 @@ export async function GET(request: Request) {
           select: {
             name: true,
             userName: true,
+            image: true,
           },
         },
         like: {

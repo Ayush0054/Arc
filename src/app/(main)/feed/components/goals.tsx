@@ -15,10 +15,17 @@ import {
   // getdislikesbygoalId,
   // getlikesbygoalId,
 } from "../action";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import {
+  AiFillDislike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiOutlineLike,
+} from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { FaComment } from "react-icons/fa6";
 import CommentModal from "./commentModal";
+import { useAuth } from "@clerk/nextjs";
+import { toast } from "sonner";
 interface Goal {
   id: number;
   name: string;
@@ -51,7 +58,7 @@ interface Goal {
 }
 function Goals() {
   const { push } = useRouter();
-
+  const { userId } = useAuth();
   const [goal, setGoal] = useState([]);
 
   //fetching goals
@@ -95,6 +102,8 @@ function Goals() {
     try {
       const response = await axios.post("/api/goallike", data);
       console.log(response);
+      getGoals();
+      toast("you liked an Arc", {});
     } catch (error) {
       console.error("Error creating goal:", error);
     }
@@ -108,6 +117,7 @@ function Goals() {
     try {
       const response = await axios.post("/api/goaldislike", data);
       console.log(response);
+      getGoals();
     } catch (error) {
       console.error("Error creating goal:", error);
     }
@@ -123,6 +133,7 @@ function Goals() {
           <div className=" mb-8 flex justify-between">
             <div>
               <CardTitle
+                className=" mb-2"
                 onClick={() => {
                   push(`/goal/${g.id}`);
                 }}
@@ -135,16 +146,21 @@ function Goals() {
                 qui ex esse fuga aut sint vero, itaque assumenda corporis quis
                 hic unde modi nesciunt numquam facere?
               </CardDescription>
-              <a
-                onClick={() => {
-                  push(`/profile/${g.profileId}`);
-                }}
-              >
-                {g.profile.name}
-              </a>
             </div>
             <div onClick={() => console.log("hey")}>
-              <AnimatedTooltip items={people} className="h-10 w-10" />
+              <AnimatedTooltip
+                items={[
+                  {
+                    id: g.profileId,
+                    name: g.profile.name,
+                    src: g.profile.image,
+                  },
+                ]}
+                // onClick={() => {
+                //   push(`/profile/${g.profileId}`);
+                // }}
+                className="h-10 w-10"
+              />
             </div>
           </div>
           <div className=" flex justify-between ">
@@ -153,16 +169,22 @@ function Goals() {
               className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
             >
               <span>{g.like.length}</span>
-              <AiOutlineLike className="hover:text-red-500 text-xl" />
-              {/* <AiFillLike /> */}
+              {g.like.find((like) => like.profileId === userId) ? (
+                <AiFillLike />
+              ) : (
+                <AiOutlineLike className="hover:text-red-500 text-xl" />
+              )}
             </div>
             <div
               onClick={() => dislike(g.id)}
               className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
             >
               {g.disLike.length}
-              <AiOutlineDislike className="hover:text-red-500 text-xl" />
-              {/* <AiFillDislike /> */}
+              {g.disLike.find((like) => like.profileId === userId) ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike className="hover:text-red-500 text-xl" />
+              )}
             </div>
             {/* <Button variant="outline" className="border-none  text-gray-500">
               <FaComment />

@@ -13,10 +13,17 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import { getGoalsbyUserId } from "../[id]/action";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import {
+  AiFillDislike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiOutlineLike,
+} from "react-icons/ai";
 import CommentModal from "../../feed/components/commentModal";
 // import CommentModal from "./commentModal";
+import { useAuth } from "@clerk/nextjs";
 function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {
+  const { userId } = useAuth();
   const { push } = useRouter();
 
   const people = [
@@ -86,16 +93,22 @@ function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {
                     className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
                   >
                     <span>{g.like.length}</span>
-                    <AiOutlineLike className="hover:text-red-500 text-xl" />
-                    {/* <AiFillLike /> */}
+                    {g.like.find((like) => like.profileId === userId) ? (
+                      <AiFillLike />
+                    ) : (
+                      <AiOutlineLike className="hover:text-red-500 text-xl" />
+                    )}
                   </div>
                   <div
                     onClick={() => dislike(g.id)}
                     className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
                   >
                     {g.disLike.length}
-                    <AiOutlineDislike className="hover:text-red-500 text-xl" />
-                    {/* <AiFillDislike /> */}
+                    {g.disLike.find((like) => like.profileId === userId) ? (
+                      <AiFillDislike />
+                    ) : (
+                      <AiOutlineDislike className="hover:text-red-500 text-xl" />
+                    )}
                   </div>
                   {/* <Button variant="outline" className="border-none  text-gray-500">
               <FaComment />

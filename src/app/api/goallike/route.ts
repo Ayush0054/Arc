@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import { redirectToSignIn } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request, res: Response) {
@@ -34,6 +35,7 @@ export async function POST(req: Request, res: Response) {
         profile: { connect: { userId: user.id } },
       },
     });
+
     return NextResponse.json(newLike, { status: 200 });
   } catch (error) {
     console.error("Request error", error);
@@ -60,6 +62,7 @@ export async function GET(req: Request, res: Response) {
         goalId: body.params.goalId,
       },
     });
+    revalidatePath(`/feed`);
     return NextResponse.json(likes, { status: 200 });
   } catch (error) {
     console.error("Request error", error);
