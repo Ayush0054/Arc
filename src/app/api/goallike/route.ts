@@ -23,12 +23,24 @@ export async function POST(req: Request, res: Response) {
         },
       },
     });
+
     console.log(existingLike);
 
     if (existingLike) {
       return await unlike(body, user);
     }
+    const existingdisLike = await prisma.disLikes.findUnique({
+      where: {
+        goalId_profileId: {
+          goalId: body.goalId,
+          profileId: user.id,
+        },
+      },
+    });
 
+    if (existingdisLike) {
+      await undislike(body, user);
+    }
     const newLike = await prisma.likes.create({
       data: {
         Goal: { connect: { id: body.goalId } },
@@ -54,6 +66,18 @@ const unlike = async (body: any, user: any) => {
   // return deletedLike;
   return NextResponse.json(deletedLike, { status: 200 });
 };
+const undislike = async (body: any, user: any) => {
+  // Delete the dislike
+  const deletedDisLike = await prisma.disLikes.deleteMany({
+    where: {
+      goalId: body.goalId,
+      profileId: user.id,
+    },
+  });
+
+  return NextResponse.json(deletedDisLike, { status: 200 });
+};
+
 export async function GET(req: Request, res: Response) {
   const body = await req.json();
   try {

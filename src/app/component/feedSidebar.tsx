@@ -28,21 +28,6 @@ function FeedSidebar() {
         >
           Your Profile
         </button>
-        <button className=" text-gray-500 hover:text-gray-400 flex gap-3 items-center mx-5  ">
-          Dashboard
-        </button>
-        <button className=" text-gray-500 hover:text-gray-400 flex gap-3 items-center mx-5  ">
-          Dashboard
-        </button>
-        <button className=" text-gray-500 hover:text-gray-400 flex gap-3 items-center mx-5  ">
-          Dashboard
-        </button>
-        <button className=" text-gray-500 hover:text-gray-400 flex gap-3 items-center mx-5  ">
-          Dashboard
-        </button>
-        <button className=" text-gray-500 hover:text-gray-400 flex gap-3 items-center mx-5  ">
-          Dashboard
-        </button>
       </div>
     </div>
   );
