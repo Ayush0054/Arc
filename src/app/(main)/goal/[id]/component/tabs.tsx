@@ -33,9 +33,9 @@ function Tab({
   const endDate = datas?.completiontime as any;
   return (
     <div>
-      <Tabs defaultValue="account" className="flex flex-col items-center">
+      <Tabs defaultValue="account" className="flex flex-col items-center ">
         <div className=" flex  items-center">
-          <TabsList className="w-[450px]  ">
+          <TabsList className="w-[450px]    ">
             {/* <TabsTrigger value="interaction">Interactions</TabsTrigger> */}
             <TabsTrigger value="comments">comments</TabsTrigger>
             <TabsTrigger value="likes">likes</TabsTrigger>

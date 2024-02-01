@@ -170,9 +170,9 @@ function Goals() {
             >
               <span>{g.like.length}</span>
               {g.like.find((like) => like.profileId === userId) ? (
-                <AiFillLike />
+                <AiFillLike className="hover:text-gray-400 text-xl" />
               ) : (
-                <AiOutlineLike className="hover:text-red-500 text-xl" />
+                <AiOutlineLike className="hover:text-black text-xl" />
               )}
             </div>
             <div
@@ -181,9 +181,9 @@ function Goals() {
             >
               {g.disLike.length}
               {g.disLike.find((like) => like.profileId === userId) ? (
-                <AiFillDislike />
+                <AiFillDislike className="hover:text-gray-400 text-xl" />
               ) : (
-                <AiOutlineDislike className="hover:text-red-500 text-xl" />
+                <AiOutlineDislike className="hover:text-black text-xl" />
               )}
             </div>
             {/* <Button variant="outline" className="border-none  text-gray-500">
