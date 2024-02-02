@@ -21,6 +21,7 @@ export async function getGoalbyId(Id: any) {
   // revalidatePath(`/goals/${Id}`);
   return goal;
 }
+
 export async function getlikesbygoalId(Id: any) {
   const user = await currentUser();
   if (!user) {
@@ -150,4 +151,28 @@ export async function getGoalProgressUpdate(Id: any) {
 
   // revalidatePath(`/goals/${Id}`);
   return lastUpdate;
+}
+
+//goal deletion by id
+export async function deleteGoalbyId(Id: any) {
+  try {
+    const user = await currentUser();
+
+    if (!user) {
+      return redirectToSignIn();
+    }
+
+    // Delete the goal and its associated likes and dislikes
+    const deletedgoal = await prisma.goal.deleteMany({
+      where: {
+        id: Id,
+        profileId: user.id,
+      },
+    });
+
+    return NextResponse.json({ deletedgoal }, { status: 200 });
+  } catch (error) {
+    console.error("Request error", error);
+    return NextResponse.json({ error: "Error deleting goal" }, { status: 500 });
+  }
 }
