@@ -3,18 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
-import Image from "next/image";
-import {
-  getGoalProfileId,
-  // getdislikesbygoalId,
-  // getlikesbygoalId,
-} from "../action";
+
 import {
   AiFillDislike,
   AiFillLike,
@@ -26,6 +17,7 @@ import { FaComment } from "react-icons/fa6";
 import CommentModal from "./commentModal";
 import { useAuth } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 interface Goal {
   id: number;
   name: string;
@@ -60,7 +52,18 @@ function Goals() {
   const { push } = useRouter();
   const { userId } = useAuth();
   const [goal, setGoal] = useState([]);
+  //skeleton
+  const [goalReady, setGoalReady] = useState(false);
 
+  useEffect(() => {
+    // Set a timeout to simulate the loading of the UserButton component
+    const timeoutId = setTimeout(() => {
+      setGoalReady(true);
+    }, 3000); // Set the timeout to 2000ms (2 seconds) for demonstration purposes
+
+    // Clean up the timeout when the component is unmounted
+    return () => clearTimeout(timeoutId);
+  }, []);
   //fetching goals
 
   const getGoals = async () => {
@@ -73,26 +76,6 @@ function Goals() {
     getGoals();
   }, []);
 
-  //hardcoded avatar
-  const people = [
-    {
-      id: 1,
-      name: "John Doe",
-      designation: "Software Engineer",
-      src: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
-    },
-  ];
-  // const getlikesandDislikes = async (id) => {
-  //   const lk = await getlikesbygoalId(id);
-  //   console.log(lk);
-
-  //   console.log(lk.length);
-
-  //   const dk = await getdislikesbygoalId(id);
-
-  //   console.log(dk);
-  //   console.log(dk.length);
-  // };
   //create like
   const like = async (id) => {
     const data = {
@@ -109,7 +92,7 @@ function Goals() {
     }
   };
   // create dislike
-  const dislike = async (id) => {
+  const dislike = async (id: any) => {
     const data = {
       goalId: id,
     };
@@ -125,74 +108,92 @@ function Goals() {
 
   return (
     <div className="m-5">
-      {goal.map((g: Goal) => (
-        <Card
-          key={g.id}
-          className=" flex flex-col justify-between p-8 m-3 w-[600px] "
-        >
+      {!goalReady ? (
+        <Card className=" flex flex-col justify-between p-8 m-3 w-[600px] ">
           <div className=" mb-8 flex justify-between">
-            <div>
-              <CardTitle
-                className=" mb-2"
-                onClick={() => {
-                  push(`/goal/${g.id}`);
-                }}
-              >
-                {g.name}
-              </CardTitle>
-              <CardDescription>
-                {g.description} Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Explicabo dolorem officia quasi repellendus
-                qui ex esse fuga aut sint vero, itaque assumenda corporis quis
-                hic unde modi nesciunt numquam facere?
-              </CardDescription>
+            <div className="mb-2">
+              <Skeleton className="w-24 h-10 bg-gray-200 rounded-lg"></Skeleton>
             </div>
-            <div onClick={() => console.log("hey")}>
-              <AnimatedTooltip
-                items={[
-                  {
-                    id: g.profileId,
-                    name: g.profile.name,
-                    src: g.profile.image,
-                  },
-                ]}
-                // onClick={() => {
-                //   push(`/profile/${g.profileId}`);
-                // }}
-                className="h-10 w-10"
-              />
-            </div>
+            <Skeleton className="h-10 w-10 rounded-full" />
           </div>
-          <div className=" flex justify-between ">
-            <div
-              onClick={() => like(g.id)}
-              className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
-            >
-              <span>{g.like.length}</span>
-              {g.like.find((like) => like.profileId === userId) ? (
-                <AiFillLike className="hover:text-gray-400 text-xl" />
-              ) : (
-                <AiOutlineLike className="hover:text-black text-xl" />
-              )}
-            </div>
-            <div
-              onClick={() => dislike(g.id)}
-              className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
-            >
-              {g.disLike.length}
-              {g.disLike.find((like) => like.profileId === userId) ? (
-                <AiFillDislike className="hover:text-gray-400 text-xl" />
-              ) : (
-                <AiOutlineDislike className="hover:text-black text-xl" />
-              )}
-            </div>
-            {/* <Button variant="outline" className="border-none  text-gray-500">
-              <FaComment />
-            </Button> */}
-            <CommentModal id={g.id} />
+          <div>
+            <Skeleton className="w-full h-32 bg-gray-200 rounded-lg"></Skeleton>
           </div>
         </Card>
-      ))}
+      ) : (
+        <div>
+          {goal.map((g: Goal) => (
+            <Card
+              key={g.id}
+              className=" flex flex-col justify-between p-8 m-3 w-[600px] "
+            >
+              <div className=" mb-8 flex justify-between">
+                <div>
+                  <CardTitle
+                    className=" mb-2"
+                    onClick={() => {
+                      push(`/goal/${g.id}`);
+                    }}
+                  >
+                    {g.name}
+                  </CardTitle>
+                  <CardDescription>
+                    {g.description} Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Explicabo dolorem officia quasi
+                    repellendus qui ex esse fuga aut sint vero, itaque assumenda
+                    corporis quis hic unde modi nesciunt numquam facere?
+                  </CardDescription>
+                </div>
+                <div onClick={() => console.log("hey")}>
+                  <AnimatedTooltip
+                    items={[
+                      {
+                        id: g.profileId,
+                        name: g.profile.name,
+                        src: g.profile.image,
+                      },
+                    ]}
+                    // onClick={() => {
+                    //   push(`/profile/${g.profileId}`);
+                    // }}
+                    // className="h-10 w-10"
+                  />
+                </div>
+              </div>
+              <div className=" flex justify-between ">
+                <div
+                  onClick={() => like(g.id)}
+                  className=" text-lg  flex gap-2 border-none justify-between items-center text-gray-500"
+                >
+                  <span>{g.like.length}</span>
+                  {g.like.find((like: any) => like.profileId === userId) ? (
+                    <AiFillLike className="hover:text-gray-400 text-xl" />
+                  ) : (
+                    <AiOutlineLike className="hover:text-black text-xl" />
+                  )}
+                </div>
+                <div
+                  onClick={() => dislike(g.id)}
+                  className="text-lg flex gap-2 justify-between items-center  border-none  text-gray-500 "
+                >
+                  {g.disLike.length}
+                  {g.disLike.find((like: any) => like.profileId === userId) ? (
+                    <AiFillDislike className="hover:text-gray-400 text-xl" />
+                  ) : (
+                    <AiOutlineDislike className="hover:text-black text-xl" />
+                  )}
+                </div>
+                {/* <Button variant="outline" className="border-none  text-gray-500">
+              <FaComment />
+            </Button> */}
+                <CommentModal id={g.id} />
+                {/* <Button>C</Button> */}
+              </div>
+            </Card>
+          ))}
+          <div></div>
+        </div>
+      )}
     </div>
   );
 }

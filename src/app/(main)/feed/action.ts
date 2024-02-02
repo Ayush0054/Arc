@@ -50,3 +50,16 @@ export const createComment = async (id: any, cmt, img) => {
   // revalidatePath(`/goals/${Id}`);
   return newComment;
 };
+export async function getComments(id) {
+  if (!id) {
+    return "Missing goal ID";
+  }
+
+  const comments = await prisma.comments.findMany({
+    where: {
+      goalId: id,
+    },
+  });
+
+  return comments;
+}
