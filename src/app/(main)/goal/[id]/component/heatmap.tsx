@@ -5,14 +5,14 @@ import React, { useState } from "react";
 import HeatMap from "@uiw/react-heat-map";
 
 const HeatmapComponent = ({
-  goalId,
-  goalType,
+  // goalId,
+  // goalType,
   startDate,
   endDate,
   goalProgress,
 }: {
-  goalId: any;
-  goalType: any;
+  // goalId: any;
+  // goalType: any;
   startDate: any;
   endDate: any;
   goalProgress: any;

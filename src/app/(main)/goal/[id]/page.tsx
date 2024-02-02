@@ -96,9 +96,8 @@ function Page({ params }: Params) {
 
   //get goal by id
   const getgoal = async () => {
-    console.log(params.id);
     const res = await getGoalbyId(params.id);
-    console.log(res);
+
     setDatas(res);
     const lk = await getlikesbygoalId(params.id);
 

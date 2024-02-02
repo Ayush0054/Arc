@@ -40,7 +40,7 @@ function Tab({
             <TabsTrigger value="comments">comments</TabsTrigger>
             <TabsTrigger value="likes">likes</TabsTrigger>
             <TabsTrigger value="dislikes">dislikes</TabsTrigger>
-            <TabsTrigger value="progress"> Proggress</TabsTrigger>
+            <TabsTrigger value="progress"> Progress</TabsTrigger>
             <TabsTrigger value="streak">Streak</TabsTrigger>
           </TabsList>
         </div>
@@ -76,8 +76,8 @@ function Tab({
         </TabsContent> */}
         <TabsContent value="streak">
           <HeatmapComponent
-            goalId={goalId}
-            goalType={goalType}
+            // goalId={goalId}
+            // goalType={goalType}
             startDate={new Date(startDate)}
             endDate={new Date(endDate)}
             goalProgress={goalProgress}
@@ -134,7 +134,7 @@ function Tab({
         <TabsContent value="dislikes">
           {dislikes.map((c) => {
             return (
-              <Card className="  p-5 min-w-[300px] m-5">
+              <Card key={c} className="  p-5 min-w-[300px] m-5">
                 <div className=" flex  justify-between">
                   <img
                     src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80"
