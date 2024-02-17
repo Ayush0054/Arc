@@ -45,7 +45,7 @@ const HeatmapComponent = ({
   // ];
   const [selected, setSelected] = useState("");
   return (
-    <div className="">
+    <div className=" lg:block hidden">
       <HeatMap
         value={value2}
         width={1100}

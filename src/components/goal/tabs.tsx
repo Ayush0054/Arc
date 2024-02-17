@@ -35,7 +35,7 @@ function Tab({
     <div>
       <Tabs defaultValue="account" className="flex flex-col items-center ">
         <div className=" flex  items-center">
-          <TabsList className="w-[450px]    ">
+          <TabsList className="lg:w-[450px]    ">
             {/* <TabsTrigger value="interaction">Interactions</TabsTrigger> */}
             <TabsTrigger value="comments">comments</TabsTrigger>
             <TabsTrigger value="likes">likes</TabsTrigger>
@@ -50,7 +50,7 @@ function Tab({
               return (
                 <Card
                   key={gp.id}
-                  className="  flex flex-col justify-evenly w-[500px] p-5 m-5  "
+                  className="  flex flex-col justify-evenly lg:w-[500px] p-5 m-5  "
                 >
                   <div className=" flex justify-between ">
                     <h1 className="text-lmd text-gray-400  ">
@@ -82,12 +82,13 @@ function Tab({
             endDate={new Date(endDate)}
             goalProgress={goalProgress}
           />
+          <h1>only for desktop</h1>
         </TabsContent>
         <TabsContent value="comments">
           {/* <Button>Comment</Button> */}
           {Comments.map((c) => {
             return (
-              <Card className="   min-w-[300px]  w-[500px] m-5 p-5 ">
+              <Card className="   min-w-[300px]  lg:w-[500px] m-5 p-5 ">
                 <div className=" flex  justify-between">
                   <CardDescription>
                     {" "}

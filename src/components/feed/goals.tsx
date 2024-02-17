@@ -48,10 +48,12 @@ interface Goal {
   createdAt: string;
   updatedAt: string;
 }
+
 function Goals() {
   const { push } = useRouter();
   const { userId } = useAuth();
   const [goal, setGoal] = useState([]);
+
   //skeleton
   const [goalReady, setGoalReady] = useState(false);
 
@@ -84,11 +86,12 @@ function Goals() {
 
     try {
       const response = await axios.post("/api/goallike", data);
+
       console.log(response);
       getGoals();
       toast("you liked an Arc", {});
     } catch (error) {
-      console.error("Error creating goal:", error);
+      console.error("Error creating goallike:", error);
     }
   };
   // create dislike
@@ -102,19 +105,19 @@ function Goals() {
       console.log(response);
       getGoals();
     } catch (error) {
-      console.error("Error creating goal:", error);
+      console.error("Error creating goallike:", error);
     }
   };
 
   return (
     <div className="m-5">
       {!goalReady ? (
-        <Card className=" flex flex-col justify-between p-8 m-3 w-[600px] ">
+        <Card className=" flex flex-col justify-between p-8 m-3 lg:w-[600px] ">
           <div className=" mb-8 flex justify-between">
             <div className="mb-2">
-              <Skeleton className="w-24 h-10 bg-gray-200 rounded-lg"></Skeleton>
+              <Skeleton className="lg:w-24 h-10 bg-gray-200 rounded-lg"></Skeleton>
             </div>
-            <Skeleton className="h-10 w-10 rounded-full" />
+            <Skeleton className="h-10 lg:w-10 rounded-full" />
           </div>
           <div>
             <Skeleton className="w-full h-32 bg-gray-200 rounded-lg"></Skeleton>
@@ -125,7 +128,7 @@ function Goals() {
           {goal.map((g: Goal) => (
             <Card
               key={g.id}
-              className=" flex flex-col justify-between p-8 m-3 w-[600px] "
+              className=" flex flex-col justify-between p-8 m-3 lg:w-[600px] "
             >
               <div className=" mb-8 flex justify-between">
                 <div>

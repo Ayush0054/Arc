@@ -12,7 +12,7 @@ import { FaComment } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { createComment } from "../action";
+import { createComment } from "../../app/(main)/feed/action";
 import { useRouter } from "next/navigation";
 function CommentModal({ id }) {
   const [img, setImg] = useState("");

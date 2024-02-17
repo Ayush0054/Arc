@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/app/component/navbar";
 import { Sheets } from "@/app/component/micro/sheets";
 import Layout from "../../component/layout";
-import Goals from "./components/goals";
+import Goals from "../../../components/feed/goals";
 // import { Sheets } from "../component/micro/sheets";
 
 function Page() {

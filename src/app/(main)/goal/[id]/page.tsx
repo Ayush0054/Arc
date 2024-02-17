@@ -13,8 +13,8 @@ import {
 import Layout from "../../../component/layout";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-import Tab from "./component/tabs";
-import { Sheets } from "./component/sheet";
+import Tab from "../../../../components/goal/tabs";
+import { Sheets } from "../../../../components/goal/sheet";
 
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
@@ -145,7 +145,7 @@ function Page({ params }: Params) {
             </h1>
             <div className=" text-gray-600">{datas?.type}</div>
           </div>
-          <div className=" flex justify-between gap-4 m-4 ">
+          <div className=" flex justify-between gap-4 lg:m-4 ">
             {/* <img
               alt="mauj masti"
               className=" h-[200px] w-[400px] rounded-lg "

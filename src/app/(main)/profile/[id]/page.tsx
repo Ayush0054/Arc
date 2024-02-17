@@ -1,8 +1,9 @@
 "use client";
 import React, { useLayoutEffect, useState } from "react";
-import Goals from "../components/goals";
+
 import Layout from "@/app/component/layout";
 import { getGoalsbyUserId } from "./action";
+import Goals from "@/components/profile/goals";
 interface Params {
   params: { id: string };
 }

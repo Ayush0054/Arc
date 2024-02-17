@@ -15,7 +15,15 @@ function Navbar() {
     return () => clearTimeout(timeoutId);
   }, []);
   return (
-    <div className="flex justify-end  p-4 border-b-2  ">
+    <div className="flex lg:justify-end justify-between  p-4 border-b-2  ">
+      <a
+        className="font-bold text-3xl block lg:hidden text-center"
+        // onClick={() => {
+        //   push(`/feed`);
+        // }}
+      >
+        ARC
+      </a>
       {!userButtonReady ? (
         <Skeleton className="h-10 w-10 rounded-full" />
       ) : (

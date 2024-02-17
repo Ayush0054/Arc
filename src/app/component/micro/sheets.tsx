@@ -55,7 +55,7 @@ export function Sheets() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className=" m-4 text-white">Add arc</Button>
+        <Button className=" m-4 text-white text-4xl ">+</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

@@ -19,7 +19,7 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
-import CommentModal from "../../feed/components/commentModal";
+import CommentModal from "../../../../components/feed/commentModal";
 // import CommentModal from "./commentModal";
 import { useAuth } from "@clerk/nextjs";
 function Goals({ goal, setGoal }: { goal: any; setGoal: any }) {

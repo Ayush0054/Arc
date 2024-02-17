@@ -4,8 +4,22 @@ import { Button } from "@/components/ui/button";
 import Form from "./component/form";
 import Sonners from "./component/micro/sonners";
 import { UserButton } from "@clerk/nextjs";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/ai");
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className=" ">
       <div>
